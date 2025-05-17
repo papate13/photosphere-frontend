@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "502477609239",
+    "project_id": "photosphere-7172e",
+    "storage_bucket": "photosphere-7172e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502477609239:android:2b2e2d5cebd3c033013f52",
+        "android_client_info": {
+          "package_name": "com.example.photosphere_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChijpU8daVKPC3L4GXV7qRcVy5CnKkkCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

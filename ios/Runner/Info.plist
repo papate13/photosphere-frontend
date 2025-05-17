@@ -47,5 +47,9 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
     <string>Photosphere needs AR to enable 360 Panoramic Images</string>
+	<key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
 </dict>
 </plist>
