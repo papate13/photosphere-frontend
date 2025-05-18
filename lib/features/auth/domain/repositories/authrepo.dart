@@ -12,6 +12,7 @@ abstract class AuthRepo {
   );
 
   Future<AppUser?> registerWithEmailAndPassword(
+    String name,
     String email,
     String password,
   );

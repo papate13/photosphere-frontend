@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:photosphere_frontend/features/auth/presentation/pages/loginPage.dart';
+import 'package:photosphere_frontend/features/auth/presentation/pages/authPage.dart';
 import 'package:photosphere_frontend/firebase_options.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 void main() async {
@@ -11,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Photosphere',
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const AuthPage(),
     );
   }
 }

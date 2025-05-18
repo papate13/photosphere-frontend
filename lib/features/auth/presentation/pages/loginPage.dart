@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:photosphere_frontend/features/auth/presentation/pages/registerPage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photosphere_frontend/features/auth/presentation/cubits/authCubits.dart';
 import 'package:photosphere_frontend/features/auth/presentation/widgets/inputFields.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? togglePages;
+
+  const LoginPage({super.key, required this.togglePages});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -14,8 +17,37 @@ class _LoginPageState extends State<LoginPage> {
   final emailTextContoller = TextEditingController();
   final passwordTextContoller = TextEditingController();
 
-  final _formkey = GlobalKey<FormState>();
+  //login button pressed
+  void loginButtonPressed() {
+    final String email = emailTextContoller.text;
+    final String password = passwordTextContoller.text;
 
+    //auth cubit
+    final authCubit = context.read<AuthCubit>();
+
+    if (email.isNotEmpty && password.isNotEmpty) {
+      authCubit.login(email, password);
+    } 
+    
+    else {
+      // show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter your email and password'),
+        ),
+      );
+    }
+  }
+
+  //clean
+  @override
+  void dispose() {
+    emailTextContoller.dispose();
+    passwordTextContoller.dispose();
+    super.dispose();
+  }
+
+  // build ui
   @override
   Widget build (BuildContext context) {
     return Scaffold(
@@ -24,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            key: _formkey,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
             
@@ -105,21 +136,25 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
-                  Text('Don\'t have an account?'),
-                  TextButton(
-                    onPressed: () { 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage())
-                      );
-                    }, 
-                    child: Text(
-                      'Register Here!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      )
+                  const Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+
+                  const SizedBox(width: 10),
+
+                  GestureDetector(
+                      onTap: widget.togglePages,
+                      child: const Text(
+                        'Register Here!',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     )
-                  )
                 ]
               )
             ],

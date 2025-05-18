@@ -3,7 +3,9 @@ import 'package:photosphere_frontend/features/auth/presentation/widgets/inputFie
 
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? togglePages;
+
+  const RegisterPage({super.key, required this.togglePages});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -16,8 +18,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final usernameTextContoller = TextEditingController();
   final confirmPasswordTextContoller = TextEditingController();
 
-  final _formkey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            key: _formkey,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -110,16 +109,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
-                    const SizedBox(width: 4),
+                    
+                    const SizedBox(width: 10),
+
                     GestureDetector(
-                      onTap: () async {
-                        if (_formkey.currentState!.validate()) {
-                          // Perform registration logic
-                        }
-
-
-                        Navigator.pushNamed(context, '/login');
-                      },
+                      onTap: widget.togglePages,
                       child: const Text(
                         'Login',
                         style: TextStyle(
