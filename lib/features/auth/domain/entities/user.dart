@@ -20,9 +20,9 @@ class AppUser {
 
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
-      uid: json['uid'] as String,
-      email: json['email'] as String,
-      name: json['name'] as String,
+      uid: json['uid'],
+      email: json['email'],
+      name: json['name'],
     );
   }
 }

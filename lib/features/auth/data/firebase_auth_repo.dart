@@ -15,7 +15,7 @@ class FirebaseAuthRepo implements AuthRepo {
 
       AppUser user = AppUser(
         uid: userCredential.user!.uid,
-        email: userCredential.user!.email!,
+        email: email,
         name: '',
       );
 
@@ -37,21 +37,23 @@ class FirebaseAuthRepo implements AuthRepo {
         print(e.message);
       }
     } catch (e) {
-      print('Error: $e');
+      throw Exception('Error: $e');
     }
+
+    return null;
   }
 
   @override
-  Future<AppUser?> registerWithEmailAndPassword(String email, String password) async { //TODO: LEFT OFF HERE 
+  Future<AppUser?> registerWithEmailAndPassword(String email, String password) async { 
     try {
-      UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(
+      UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       AppUser user = AppUser(
         uid: userCredential.user!.uid,
-        email: userCredential.user!.email!,
+        email: email,
         name: '',
       );
 
@@ -73,19 +75,29 @@ class FirebaseAuthRepo implements AuthRepo {
         print(e.message);
       }
     } catch (e) {
-      print('Error: $e');
+      throw Exception('Error: $e');
     }
+
+    return null;
   }
 
   @override
-  Future<AppUser?> logout(String email, String password) async {
-    //todo
-    throw UnimplementedError();
+  Future<void> logout() async {
+    await firebaseAuth.signOut();
   }
 
   @override
-  Future<AppUser?> getCurrentUser(String email, String password) async {
-    //todo
-    throw UnimplementedError();
+  Future<AppUser?> getCurrentUser() async {
+    final firebaseUser = firebaseAuth.currentUser;
+
+    if(firebaseUser == null) {
+      return null;
+    }
+
+    return AppUser(
+      uid: firebaseUser.uid,
+      email: firebaseUser.email!,
+      name: '',
+    );
   }
 }
